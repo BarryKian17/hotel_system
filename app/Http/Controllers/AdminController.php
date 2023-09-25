@@ -57,7 +57,18 @@ class AdminController extends Controller
             $data['photo'] = $newPhoto;
         }
         User::where('id',$id)->update($data);
-        return back();
+
+        $noti = array(
+            'message'=>'Admin Profile Update Successfully.',
+            'alert-type'=>'success'
+        );
+
+        return back()->with($noti);
+    }
+
+    //Admin Change Password
+    public function adminChangePassword(){
+        return view('admin.admin_changePassword');
     }
 
     //Admin Profile Validation

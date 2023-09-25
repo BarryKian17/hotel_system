@@ -16,7 +16,7 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.index');
 });
 
 Route::get('/dashboard', function () {
@@ -36,6 +36,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
     Route::get('/admin/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
     Route::post('/admin/profile/update',[AdminController::class,'adminProfileUpdate'])->name('admin.profile.update');
+    Route::get('/admin/change/password', [AdminController::class, 'adminChangePassword'])->name('admin.change.password');
+
 
 });
 
