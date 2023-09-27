@@ -43,6 +43,28 @@ class UserController extends Controller
         return back()->with($noti);
     }
 
+    //user logout
+    public function userLogout(Request $request)
+    {
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        $noti = array(
+            'message'=>'User Logout Successfully.',
+            'alert-type'=>'success'
+        );
+
+        return redirect('/login')->with($noti);
+    }
+
+    //Change Password Page
+    public function userChangePassword(){
+        return view('user.dashboard.user_change_password');
+    }
+
     //user Profile Validation
     private function profileUpdateValidation($request){
         $id = Auth::user()->id;

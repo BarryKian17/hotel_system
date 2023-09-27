@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
@@ -27,6 +28,9 @@ Route::get('/dashboard', function () {
 Route::middleware('auth','user')->group(function () {
     Route::get('/profile', [UserController::class, 'page'])->name('user.profile');
     Route::post('/user/profile/update',[UserController::class,'userProfileUpdate'])->name('user.profile.update');
+    Route::get('/user/logout', [UserController::class, 'userLogout'])->name('user.logout');
+    Route::get('/user/password/change',[UserController::class,'userChangePassword'])->name('user.password.change');
+
 
 
 });
@@ -39,6 +43,12 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admin/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
     Route::post('/admin/profile/update',[AdminController::class,'adminProfileUpdate'])->name('admin.profile.update');
     Route::get('/admin/change/password', [AdminController::class, 'adminChangePassword'])->name('admin.change.password');
+
+
+    //Team List
+    Route::prefix('team')->controller(TeamController::class)->group(function(){
+        Route::get('list','teamList')->name('team.list');
+    });
 
 
 });
