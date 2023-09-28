@@ -1,7 +1,7 @@
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div>
-            <img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+            <img src="{{ asset('backend/assets/images/logo-icon.png')}}" class="logo-icon" alt="logo icon">
         </div>
         <div>
             <h4 class="logo-text">Rocker</h4>
@@ -25,9 +25,9 @@
                 <div class="menu-title">Team</div>
             </a>
             <ul>
-                <li> <a href="app-emailbox.html"><i class='bx bx-radio-circle'></i>Team members</a>
+                <li> <a href="{{ route('team.list') }}"><i class='bx bx-radio-circle'></i>Team members</a>
                 </li>
-                <li> <a href="app-chat-box.html"><i class='bx bx-radio-circle'></i>Add members</a>
+                <li> <a href="{{ route('team.add.page') }}"><i class='bx bx-radio-circle'></i>Add members</a>
                 </li>
             </ul>
         </li>

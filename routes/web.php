@@ -48,6 +48,12 @@ Route::middleware(['auth','role:admin'])->group(function(){
     //Team List
     Route::prefix('team')->controller(TeamController::class)->group(function(){
         Route::get('list','teamList')->name('team.list');
+        Route::get('team/add','addPage')->name('team.add.page');
+        Route::post('team/add/date','add')->name('team.add');
+        Route::get('edit/{id}','editPage')->name('team.edit');
+        Route::post('team/update','update')->name('team.update');
+        Route::get('delete/{id}','delete')->name('team.delete');
+
     });
 
 
