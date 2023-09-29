@@ -5,6 +5,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BookAreaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,8 +54,11 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('edit/{id}','editPage')->name('team.edit');
         Route::post('team/update','update')->name('team.update');
         Route::get('delete/{id}','delete')->name('team.delete');
-
     });
+
+    //Booking Area
+    Route::get('booking/area/page',[BookAreaController::class,'page'])->name('book.area.page');
+    Route::post('booking/area/update',[BookAreaController::class,'update'])->name('book.area.update');
 
 
 });

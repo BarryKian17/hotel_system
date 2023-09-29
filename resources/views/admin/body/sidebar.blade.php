@@ -31,6 +31,17 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Manage Booking Area</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('book.area.page') }}"><i class='bx bx-radio-circle'></i>Update Booking Area</a>
+                </li>
+            </ul>
+        </li>
         <li class="menu-label">UI Elements</li>
         <li>
             <a href="javascript:;" class="has-arrow">

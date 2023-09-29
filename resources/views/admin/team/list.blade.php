@@ -39,7 +39,7 @@
                                 <td>{{ $t->facebook }}</td>
                                 <td>
                                     <a href="{{ route('team.edit',$t->id) }}"><button class="btn btn-success">Edit</button></a>
-                                    <a href="{{ route('team.delete',$t->id) }}"><button class="btn btn-danger">Delete</button></a>
+                                    <a href="{{ route('team.delete',$t->id) }}" id="delete" ><button class="btn btn-danger">Delete</button></a>
                                 </td>
                             </tr>
                             @endforeach

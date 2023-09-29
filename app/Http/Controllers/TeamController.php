@@ -94,10 +94,7 @@ class TeamController extends Controller
     //member add validation
     private function memberAdd($request){
         Validator::make($request->all(),[
-            'name'=>'required',
-            'position'=>'required',
-            'facebook'=>'required',
-            'image'=>'required|mimes:png,jpg,avif,jpeg'
+            'image'=>'mimes:png,jpg,avif,jpeg'
         ])->validate();
     }
 

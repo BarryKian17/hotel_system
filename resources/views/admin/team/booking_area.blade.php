@@ -6,13 +6,13 @@
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Team</div>
+            <div class="breadcrumb-title pe-3">Manage Booking Area</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="{{ route('team.list') }}"><i class="bx bx-home-alt"></i></a>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Add Members</li>
+                        <li class="breadcrumb-item active" aria-current="page">Update Area</li>
                     </ol>
                 </nav>
             </div>
@@ -23,33 +23,42 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="card">
-                            <form action="{{ route('team.add') }}" id="myForm" method="POST"
+                            <form action="{{ route('book.area.update') }}" id="myForm" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
-
+                            <input type="text" name="id" value="{{ $data->id }}" hidden>
                                 <div class="card-body">
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">Name</h6>
+                                            <h6 class="mb-0">Short_title</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary form-group">
-                                            <input type="text" name="name" class="form-control " value="" />
+                                            <input type="text" name="short_title" class="form-control " value="{{ $data->short_title }}" />
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">Position</h6>
+                                            <h6 class="mb-0">Main_title</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary form-group">
-                                            <input type="text" name="position" class="form-control" value="" />
+                                            <input type="text" name="main_title" class="form-control" value="{{ $data->main_title }}" />
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">Facebook</h6>
+                                            <h6 class="mb-0">Description</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary form-group">
-                                            <input type="text" name="facebook" class="form-control " value="" />
+                                            <input type="text" name="description" class="form-control " value="{{ $data->short_description }}" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Link_url</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary form-group">
+                                            <input type="text" name="link_url" class="form-control " value="{{ $data->link_url }}" />
 
                                         </div>
                                     </div>
@@ -72,7 +81,7 @@
                                             <h6 class="mb-0"></h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <img id="showImage" src="{{ url('storage/user.jpg') }}" width="100px"
+                                            <img id="showImage" src="{{ asset($data->image) }}" width="100px"
                                                 alt="">
                                         </div>
 
@@ -113,32 +122,32 @@
         $(document).ready(function() {
             $('#myForm').validate({
                 rules: {
-                    name: {
+                    short_title: {
                         required: true,
                     },
-                    position: {
+                    main_title: {
                         required: true,
                     },
-                    facebook: {
+                    description: {
                         required: true,
                     },
-                    image: {
+                    link_url: {
                         required: true,
                     },
 
                 },
                 messages: {
-                    name: {
-                        required: 'Please Enter Member Name',
+                    short_title: {
+                        required: 'Please Enter short_title',
                     },
-                    position: {
-                        required: 'Please Enter Member position',
+                    main_title: {
+                        required: 'Please Enter main_title',
                     },
-                    facebook: {
-                        required: 'Please Enter Member Facebook',
+                    description: {
+                        required: 'Please Enter description',
                     },
-                    image: {
-                        required: 'Please Select Member Image',
+                    link_url: {
+                        required: 'Please Enter link_url',
                     },
 
 

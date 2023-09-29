@@ -32,5 +32,15 @@ class UsersTableSeeder extends Seeder
                 'status'=>'active',
             ],
         ]);
+        DB::table('book_areas')->insert([
+            // Admin
+            [
+                'image'=>'Hello',
+                'short_title'=>'admin@gmail.com',
+                'short_description'=>'gfgfg',
+                'main_title'=>'admgfgfin',
+                'link_url'=>'getaff',
+            ],
+        ]);
     }
 }
