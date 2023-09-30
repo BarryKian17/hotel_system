@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookAreaController;
+use App\Http\Controllers\RoomTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,14 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('edit/{id}','editPage')->name('team.edit');
         Route::post('team/update','update')->name('team.update');
         Route::get('delete/{id}','delete')->name('team.delete');
+    });
+
+    //Room Type
+    Route::prefix('room/type')->controller(RoomTypeController::class)->group(function(){
+        Route::get('list','list')->name('room.type.list');
+        Route::get('add/page','addPage')->name('room.type.add.page');
+        Route::post('create','create')->name('room.type.create');
+
     });
 
     //Booking Area
