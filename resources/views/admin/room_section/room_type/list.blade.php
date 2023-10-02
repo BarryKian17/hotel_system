@@ -36,7 +36,7 @@
                                 <td><img src="{{ !empty($room->image) ? url('$room->image') : url('storage/none.jpg') }}" style="width: 100px" alt=""></td>
                                 <td>{{$t->name}}</td>
                                 <td>
-                                    <a href=""><button class="btn btn-success">Edit</button></a>
+                                    <a href="{{ route('room.edit',$t->id) }}"><button class="btn btn-success">Edit</button></a>
                                     <a href="" id="delete" ><button class="btn btn-danger">Delete</button></a>
                                 </td>
                             </tr>

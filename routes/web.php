@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
@@ -63,6 +64,11 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('add/page','addPage')->name('room.type.add.page');
         Route::post('create','create')->name('room.type.create');
 
+    });
+
+    //Room Type
+    Route::prefix('room')->controller(RoomController::class)->group(function(){
+        Route::get('edit/{id}','edit')->name('room.edit');
     });
 
     //Booking Area
