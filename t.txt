@@ -1,0 +1,28 @@
+        $files = $request->multi_img;
+        if(!empty($files)){
+            $subImage = MultiImage::where('rooms_id',$id)->get()->toArray();
+            MultiImage::where('rooms_id',$id)->delete();
+        }
+        if(!empty($files)){
+            foreach($files as $f){
+                $imgName = date('YmdHi') . uniqid() . $file->getClientOriginalExtension();
+                $url = 'upload/room/multiImg/' . $imgName;
+                $file->move($url);
+                $subImage['multi_img'] = $imgName;
+                $subImage = new MultiImage();
+                $subImage->rooms_id = $id ;
+                $subImage->multi_img = $imgName ;
+                $subImage->save();
+            }
+        }
+
+
+
+
+    $oldImg = MultiImage::where('rooms_id',$id)->get()->toArray();
+    foreach($oldImg as $old){
+        $deleteImg = $old['multi_image'];
+        $path = 'upload/room/multiImg/'.$deleteImg;
+        unlink($path);
+    }
+    MultiImage::where('rooms_id',$id)->delete();

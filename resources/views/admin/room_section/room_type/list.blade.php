@@ -33,7 +33,7 @@
                             @endphp
                             <tr>
                                 <td>{{ $t->id }}</td>
-                                <td><img src="{{ !empty($room->image) ? url('$room->image') : url('storage/none.jpg') }}" style="width: 100px" alt=""></td>
+                                <td><img src="{{ !empty($room[0]['image']) ? asset('upload/room/'.$room[0]['image']) : url('storage/none.jpg') }}" style="width: 100px" alt=""></td>
                                 <td>{{$t->name}}</td>
                                 <td>
                                     <a href="{{ route('room.edit',$t->id) }}"><button class="btn btn-success">Edit</button></a>

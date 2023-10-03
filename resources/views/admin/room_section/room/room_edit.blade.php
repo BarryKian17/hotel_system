@@ -50,7 +50,9 @@
                                     <div class="card">
                                         <div class="card-body p-4">
                                             <h5 class="mb-4">Update Room</h5>
-                                            <form class="row g-3">
+                                            <form class="row g-3" action="{{ route('room.update', $room[0]['id']) }}"
+                                                enctype="multipart/form-data" method="POST">
+                                                @csrf
                                                 <div class="col-md-4">
                                                     <label for="input1" class="form-label">Room Type Name</label>
                                                     <input type="text" name="room_type_id" class="form-control"
@@ -60,21 +62,19 @@
                                                 <div class="col-md-4">
                                                     <label for="input2" class="form-label">Total Adult</label>
                                                     <input type="text" name="total_adult" class="form-control"
-                                                        value="{{ $room[0]['total_adult'] }}" id="input2"
-                                                        placeholder="Last Name">
+                                                        value="{{ $room[0]['total_adult'] }}" id="input2">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="input2" class="form-label">Total Child</label>
                                                     <input type="text" name="total_child" class="form-control"
-                                                        value="{{ $room[0]['total_child'] }}" id="input2"
-                                                        placeholder="Last Name">
+                                                        value="{{ $room[0]['total_child'] }}" id="input2">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="input3" class="form-label">Main Image</label>
                                                     <input type="file" name="image" class="form-control"
                                                         id="image">
                                                     <img id="showImage" class="mt-1"
-                                                        src="{{ !empty($room->image) ? url('$room->image') : url('storage/none.jpg') }}"
+                                                        src="{{ !empty($room[0]['image']) ? asset('upload/room/' . $room[0]['image']) : url('storage/none.jpg') }}"
                                                         width="100px" alt="">
                                                 </div>
                                                 <div class="col-md-6">
@@ -82,41 +82,59 @@
                                                     <input type="file" name="multi_image[]" class="form-control" multiple
                                                         id="multiImg"
                                                         accept="image/jpeg , image/jpg , image/png , image/avif , image/gif">
+                                                        @foreach ($multiImg as $m)
+                                                        <img  class="mt-1"
+                                                        src="{{ !empty($m['multi_image']) ? url('upload/room/multiImg/'.$m['multi_image']) : url('storage/none.jpg') }}"
+                                                        width="100px" height="100px" alt="">
+                                                        <a href="{{ route('room.delete.multiImg',$m['id']) }}"><i class="lni lni-close me-3"></i></a>
+                                                        @endforeach
                                                     <div class="row" id="preview_img"></div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <label for="input2" class="form-label">Room Price ($)</label>
                                                     <input type="text" name="price" class="form-control"
-                                                        value="{{ $room[0]['price'] }}" id="input2"
-                                                        placeholder="Last Name">
+                                                        value="{{ $room[0]['price'] }}" id="input2">
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
+                                                    <label for="input2" class="form-label">Size</label>
+                                                    <input type="text" name="size" class="form-control"
+                                                        value="{{ $room[0]['size'] }}" id="input2">
+                                                </div>
+                                                <div class="col-md-3">
                                                     <label for="input2" class="form-label">Discount (%)</label>
                                                     <input type="text" name="discount" class="form-control"
-                                                        value="{{ $room[0]['discount'] }}" id="input2"
-                                                        placeholder="Last Name">
+                                                        value="{{ $room[0]['discount'] }}" id="input2">
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <label for="input2" class="form-label">Room Capacity</label>
                                                     <input type="text" name="room_capacity" class="form-control"
-                                                        value="{{ $room[0]['room_capacity'] }}" id="input2"
-                                                        placeholder="Last Name">
+                                                        value="{{ $room[0]['room_capacity'] }}" id="input2">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="input7" class="form-label">Room View</label>
                                                     <select name="view" id="input7" class="form-select">
                                                         <option selected="">Choose...</option>
-                                                        <option value="Sea View">Sea View</option>
-                                                        <option value="Hill View">Hill View</option>
+                                                        <option value="Sea View"
+                                                            {{ $room[0]['view'] == 'Sea View' ? 'selected' : '' }}>Sea View
+                                                        </option>
+                                                        <option value="Hill View"
+                                                            {{ $room[0]['view'] == 'Hill View' ? 'selected' : '' }}>Hill
+                                                            View</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="input7" class="form-label">Bed Style</label>
                                                     <select name="bed_style" id="input7" class="form-select">
                                                         <option selected="">Choose...</option>
-                                                        <option value="Queen Bed">Queen Bed</option>
-                                                        <option value="Twin Bed">Twin Bed</option>
-                                                        <option value="King Bed">King Bed</option>
+                                                        <option value="Queen Bed"
+                                                            {{ $room[0]['bed_style'] == 'Queen Bed' ? 'selected' : '' }}>
+                                                            Queen Bed</option>
+                                                        <option value="Twin Bed"
+                                                            {{ $room[0]['bed_style'] == 'Twin Bed' ? 'selected' : '' }}>
+                                                            Twin Bed</option>
+                                                        <option value="King Bed"
+                                                            {{ $room[0]['bed_style'] == 'King Bed' ? 'selected' : '' }}>
+                                                            King Bed</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">
@@ -144,7 +162,7 @@
                                                                                 {{ $item->facility_name == 'Complimentary Breakfast' ? 'selected' : '' }}>
                                                                                 Complimentary Breakfast</option>
                                                                             <option value="32/42 inch LED TV"
-                                                                                {{ $item->facility_name == 'Complimentary Breakfast' ? 'selected' : '' }}>
+                                                                                {{ $item->facility_name == '32/42 inch LED TV' ? 'selected' : '' }}>
                                                                                 32/42 inch LED TV</option>
 
                                                                             <option value="Smoke alarms"
@@ -152,7 +170,7 @@
                                                                                 Smoke alarms</option>
 
                                                                             <option value="Minibar"
-                                                                                {{ $item->facility_name == 'Complimentary Breakfast' ? 'selected' : '' }}>
+                                                                                {{ $item->facility_name == ' Minibar' ? 'selected' : '' }}>
                                                                                 Minibar</option>
 
                                                                             <option value="Work Desk"
@@ -196,10 +214,10 @@
                                                                         <div class="form-group"
                                                                             style="padding-top: 30px;">
                                                                             <a class="btn btn-success addeventmore"><i
-                                                                                    class="fa fa-plus-circle"></i></a>
+                                                                                    class="lni lni-circle-plus"></i></a>
                                                                             <span
-                                                                                class="btn btn-danger btn-sm removeeventmore"><i
-                                                                                    class="fa fa-minus-circle"></i></span>
+                                                                                class="btn btn-danger p-2 btn-sm removeeventmore"><i
+                                                                                    class="lni lni-circle-minus"></i></span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -213,8 +231,8 @@
                                                                     <div class="col-md-6">
                                                                         <label for="basic_facility_name"
                                                                             class="form-label">Room Facilities </label>
-                                                                        <select name="basic_facility_name[]"
-                                                                            id="basic_facility_name" class="form-control">
+                                                                        <select name="facility_name[]" id="facility_name"
+                                                                            class="form-control">
                                                                             <option value="">Select Facility</option>
                                                                             <option value="Complimentary Breakfast">
                                                                                 Complimentary Breakfast</option>
@@ -344,7 +362,7 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="basic_facility_name">Room Facilities</label>
-                            <select name="basic_facility_name[]" id="basic_facility_name" class="form-control">
+                            <select name="facility_name[]" id="basic_facility_name" class="form-control">
                                 <option value="">Select Facility</option>
                                 <option value="Complimentary Breakfast">Complimentary Breakfast</option>
                                 <option value="32/42 inch LED TV"> 32/42 inch LED TV</option>

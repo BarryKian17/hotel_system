@@ -69,6 +69,10 @@ Route::middleware(['auth','role:admin'])->group(function(){
     //Room Type
     Route::prefix('room')->controller(RoomController::class)->group(function(){
         Route::get('edit/{id}','edit')->name('room.edit');
+        Route::post('update/{id}','update')->name('room.update');
+        Route::get('delete/multiImg/{id}','deleteMulti')->name('room.delete.multiImg');
+
+
     });
 
     //Booking Area
