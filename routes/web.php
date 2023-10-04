@@ -71,8 +71,11 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('edit/{id}','edit')->name('room.edit');
         Route::post('update/{id}','update')->name('room.update');
         Route::get('delete/multiImg/{id}','deleteMulti')->name('room.delete.multiImg');
-
-
+        Route::post('number/create','create')->name('room.number.create');
+        Route::get('number/edit/{id}','numberEdit')->name('room.number.edit');
+        Route::post('number/update/{id}','numberUpdate')->name('room.number.update');
+        Route::get('number/delete/{id}','numberDelete')->name('room.number.delete');
+        Route::get('delete/all/{id}','deleteAll')->name('room.delete.all');
     });
 
     //Booking Area

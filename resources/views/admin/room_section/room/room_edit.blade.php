@@ -40,7 +40,7 @@
                                         <div class="d-flex align-items-center">
                                             <div class="tab-icon"><i class="bx bx-user-pin font-18 me-1"></i>
                                             </div>
-                                            <div class="tab-title">Profile</div>
+                                            <div class="tab-title">Room Number</div>
                                         </div>
                                     </a>
                                 </li>
@@ -82,12 +82,13 @@
                                                     <input type="file" name="multi_image[]" class="form-control" multiple
                                                         id="multiImg"
                                                         accept="image/jpeg , image/jpg , image/png , image/avif , image/gif">
-                                                        @foreach ($multiImg as $m)
-                                                        <img  class="mt-1"
-                                                        src="{{ !empty($m['multi_image']) ? url('upload/room/multiImg/'.$m['multi_image']) : url('storage/none.jpg') }}"
-                                                        width="100px" height="100px" alt="">
-                                                        <a href="{{ route('room.delete.multiImg',$m['id']) }}"><i class="lni lni-close me-3"></i></a>
-                                                        @endforeach
+                                                    @foreach ($multiImg as $m)
+                                                        <img class="mt-1"
+                                                            src="{{ !empty($m['multi_image']) ? url('upload/room/multiImg/' . $m['multi_image']) : url('storage/none.jpg') }}"
+                                                            width="100px" height="100px" alt="">
+                                                        <a href="{{ route('room.delete.multiImg', $m['id']) }}"><i
+                                                                class="lni lni-close me-3"></i></a>
+                                                    @endforeach
                                                     <div class="row" id="preview_img"></div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -169,9 +170,9 @@
                                                                                 {{ $item->facility_name == 'Smoke alarms' ? 'selected' : '' }}>
                                                                                 Smoke alarms</option>
 
-                                                                            <option value="Minibar"
-                                                                                {{ $item->facility_name == ' Minibar' ? 'selected' : '' }}>
-                                                                                Minibar</option>
+                                                                                <option value="Mini Bar"
+                                                                                {{ $item->facility_name == 'Mini Bar' ? 'selected' : '' }}>
+                                                                                Mini Bar</option>
 
                                                                             <option value="Work Desk"
                                                                                 {{ $item->facility_name == 'Work Desk' ? 'selected' : '' }}>
@@ -240,7 +241,7 @@
                                                                                 LED TV</option>
                                                                             <option value="Smoke alarms">Smoke alarms
                                                                             </option>
-                                                                            <option value="Minibar"> Minibar</option>
+                                                                            <option value="Mini Bar">Mini Bar</option>
                                                                             <option value="Work Desk">Work Desk</option>
                                                                             <option value="Free Wi-Fi">Free Wi-Fi</option>
                                                                             <option value="Safety box">Safety box</option>
@@ -286,17 +287,69 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- ======================================= Room Number section =========================== --}}
                                 <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
-                                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee
-                                        squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes
-                                        anderson artisan four loko farm-to-table craft beer twee. Qui photo booth
-                                        letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
-                                        cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.
-                                        Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan
-                                        fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY
-                                        ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr
-                                        butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <a class="card-title btn btn-primary float-right" onclick="addRoomNo()" id="addRoomNo">
+                                                <i class="lni lni-plus">Add New</i>
+                                            </a>
+                                            <div class="roomHide" id="roomHide">
+                                                <form action="{{ route('room.number.create') }}" method="POST">
+                                                    @csrf
+                                                    <input type="text" value="{{ $room[0]['id'] }}" hidden name="rooms_id">
+                                                    <input type="text" value="{{ $room[0]['room_type_id'] }}" hidden name="room_type_id">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label for="input2" class="form-label">Room Number</label>
+                                                            <input type="text" name="room_no" required class="form-control"
+                                                                id="input2">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="input7" class="form-label">Room Status</label>
+                                                            <select name="status" id="input7" class="form-select">
+                                                                <option selected value="Active">Active
+                                                                </option>
+                                                                <option value="Inactive">Inactive</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="d-md-flex d-grid align-items-center gap-3 mt-4">
+                                                                <button type="submit" class="btn btn-success px-2">Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                            <div class="card-body" id="roomView">
+                                                <h4>Room List</h4>
+                                                <table class="table mb-0 table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Room Number</th>
+                                                            <th scope="col">Status</th>
+                                                            <th scope="col">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($roomNo as $r)
+                                                        <tr>
+                                                            <td>{{ $r->room_no }}</td>
+                                                            <td>{{ $r->status }}</td>
+                                                            <td>
+                                                                <a href="{{ route('room.number.edit',$r->id) }}"><button class="btn btn-success">Edit</button></a>
+                                                                <a href="{{ route('room.number.delete',$r->id) }}" id="delete" ><button class="btn btn-danger">Delete</button></a>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                {{-- ======================================= Room Number section End ===========================    --}}
                             </div>
                         </div>
                     </div>
@@ -367,7 +420,7 @@
                                 <option value="Complimentary Breakfast">Complimentary Breakfast</option>
                                 <option value="32/42 inch LED TV"> 32/42 inch LED TV</option>
                                 <option value="Smoke alarms">Smoke alarms</option>
-                                <option value="Minibar"> Minibar</option>
+                                <option value="Mini Bar">Mini Bar</option>
                                 <option value="Work Desk">Work Desk</option>
                                 <option value="Free Wi-Fi">Free Wi-Fi</option>
                                 <option value="Safety box">Safety box</option>
@@ -404,4 +457,15 @@
         });
     </script>
     <!--========== End of Basic Plan Facilities ==============-->
+
+    <!--========== Room Number section ==============-->
+    <script>
+        $('#roomHide').hide();
+        $('$#roomView').show();
+        function addRoomNo(){
+            $('#roomHide').show();
+            $('#roomView').hide();
+            $('#addRoomNo').hide();
+        }
+    </script>
 @endsection

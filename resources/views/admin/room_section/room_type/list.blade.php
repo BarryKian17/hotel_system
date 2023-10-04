@@ -4,14 +4,23 @@
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="breadcrumb-title pe-3">Room</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
-                        <a href="{{ route('room.type.add.page') }}"><button class="btn btn-outline-primary">Add Room Type</button></a>
+                        <li class="breadcrumb-item"><a href="{{ route('room.type.list') }}"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Room Type List</li>
                     </ol>
                 </nav>
             </div>
+            <div class="ms-auto me-4">
+                <div class="btn-group">
+                    <a href="{{ route('room.type.add.page') }}"><button class="btn btn-primary">Add Room Type</button></a>
+                </div>
+            </div>
         </div>
+
         <!--end breadcrumb-->
         <h6 class="mb-0 text-uppercase">Room Type List</h6>
         <hr />
@@ -37,7 +46,7 @@
                                 <td>{{$t->name}}</td>
                                 <td>
                                     <a href="{{ route('room.edit',$t->id) }}"><button class="btn btn-success">Edit</button></a>
-                                    <a href="" id="delete" ><button class="btn btn-danger">Delete</button></a>
+                                    <a href="{{ route('room.delete.all',$t->id) }}" id="delete" ><button class="btn btn-danger">Delete</button></a>
                                 </td>
                             </tr>
                             @endforeach
