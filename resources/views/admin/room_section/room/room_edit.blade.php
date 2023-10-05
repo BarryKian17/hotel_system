@@ -55,7 +55,7 @@
                                                 @csrf
                                                 <div class="col-md-4">
                                                     <label for="input1" class="form-label">Room Type Name</label>
-                                                    <input type="text" name="room_type_id" class="form-control"
+                                                    <input type="text" disabled name="room_type_id" class="form-control"
                                                         value="{{ $type[0]['name'] }}" id="input1"
                                                         placeholder="First Name">
                                                 </div>

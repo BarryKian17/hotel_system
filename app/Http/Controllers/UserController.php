@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
+use App\Models\Team;
 use App\Models\User;
+use App\Models\book_area;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -10,6 +13,18 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+
+    //Index page
+    public function index(){
+        $team = Team::get();
+        $room = Room::select('rooms.*','room_types.name as room_name')
+                ->leftJoin('room_types','rooms.room_type_id','room_types.id')
+                ->get();
+        $bookArea = book_area::get();
+        return view('user.index',compact('room','team','bookArea'));
+    }
+
+
     //User Profile Page
     public function page(){
         return view('user.dashboard.user_profile');

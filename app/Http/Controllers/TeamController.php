@@ -29,11 +29,11 @@ class TeamController extends Controller
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
         $path = 'upload/team/' . $name_gen;
         Image::make($image)->resize(550,670)->save($path);
-
+        $facebook = "https://www.facebook.com/".$request->facebook;
         $data = [
             'name'=>$request->name,
             'position'=>$request->position,
-            'facebook'=>$request->facebook,
+            'facebook'=>$facebook,
             'image'=>$path
         ];
         Team::create($data);

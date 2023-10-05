@@ -4,20 +4,17 @@
             <div class="col-lg-6">
                 <div class="book-content-two">
                     <div class="section-title">
-                        <span class="sp-color">MAKE A QUICK BOOKING</span>
-                        <h2>We Are the Best in All-time & So Please Get a Quick Booking</h2>
-                        <p>
-                            Atoli is one of the best resorts in the global market and that's why you will get a luxury life period on the global market. We always
-                            provide you a special support for all of our guests and that's will  be the main reason to be the most popular.
-                        </p>
+                        <span class="sp-color">{{ $bookArea[0]['short_title'] }}</span>
+                        <h2>{{ $bookArea[0]['maint_title'] }}</h2>
+                        <p>{{ $bookArea[0]['short_description'] }}</p>
                     </div>
-                    <a href="#" class="default-btn btn-bg-three">Quick Booking</a>
+                    <a href="{{ $bookArea[0]['link_url'] }}" class="default-btn btn-bg-three">Quick Booking</a>
                 </div>
             </div>
 
             <div class="col-lg-6">
                 <div class="book-img-2">
-                    <img src="{{ asset('frontend/assets/img/book-img2.jpg') }}" alt="Images">
+                    <img src="{{ asset($bookArea[0]['image']) }}" alt="Images">
                 </div>
             </div>
         </div>

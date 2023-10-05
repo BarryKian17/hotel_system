@@ -28,7 +28,10 @@ class BookAreaController extends Controller
         if($request->hasFile('image')){
             $oldImage = book_area::where('id',$id)->first();
             $oldImage = $oldImage->image;
-            unlink($oldImage);
+            if($oldImage != null){
+                unlink($oldImage);
+            }
+
             $image = $request->file('image');
             $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
             $path = 'upload/team/' . $name_gen;

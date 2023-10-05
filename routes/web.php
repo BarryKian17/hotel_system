@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookAreaController;
 use App\Http\Controllers\RoomTypeController;
+use App\Http\Controllers\User\UserRoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,7 @@ use App\Http\Controllers\RoomTypeController;
 |
 */
 
-Route::get('/', function () {
-    return view('user.index');
-});
-
+Route::get('/',[UserController::class,'index'])->name('user.index');
 Route::get('/dashboard', function () {
     return view('user.dashboard.user_dashboard');
 })->middleware(['auth', 'verified','user'])->name('dashboard');
@@ -87,3 +85,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
 
 Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
 
+//User Room View
+Route::prefix('user/room')->controller(UserRoomController::class)->group(function(){
+    Route::get('list','list')->name('user.room.list');
+    Route::get('detail/{id}','detail')->name('user.room.detail');
+});

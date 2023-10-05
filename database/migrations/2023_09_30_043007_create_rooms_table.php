@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('bed_style')->nullable();
             $table->integer('discount')->default(0);
             $table->string('short_desc')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });
