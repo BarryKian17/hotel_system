@@ -89,4 +89,5 @@ Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.
 Route::prefix('user/room')->controller(UserRoomController::class)->group(function(){
     Route::get('list','list')->name('user.room.list');
     Route::get('detail/{id}','detail')->name('user.room.detail');
+    Route::get('booking/search','bookSearch')->name('user.book.search');
 });

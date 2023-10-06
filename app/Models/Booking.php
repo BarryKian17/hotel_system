@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use App\Models\RoomNumber;
+use App\Models\BookingRoomList;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Room extends Model
+class Booking extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
-    public function room_numbers(){
-        return $this->hasMany(RoomNumber::class , 'rooms_id')->where('status','Active');
+    public function assign_rooms(){
+        return $this->hasMany(BookingRoomList::class , 'booking_id');
     }
 }

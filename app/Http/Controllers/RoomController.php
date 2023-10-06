@@ -37,6 +37,7 @@ class RoomController extends Controller
             'view'=>$request->view ,
             'short_desc'=>$request->short_desc ,
             'description'=>$request->description ,
+            'status'=>1
 
         ];
         if($request->hasFile('image')){
