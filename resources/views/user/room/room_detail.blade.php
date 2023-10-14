@@ -150,7 +150,7 @@
         <div class="side-bar-list">
             <ul>
                <li>
-                    <a href="#"> <b>Capacity : </b> {{ $room[0]['room_capacity'] }} Person <i class='bx bxs-cloud-download'></i></a>
+                    <a href="#"> <b>Capacity : </b> {{ $room[0]['total_adult'] }} Person <i class='bx bxs-cloud-download'></i></a>
                 </li>
                 <li>
                      <a href="#"> <b>Size : </b> {{ $room[0]['size'] }} <i class='bx bxs-cloud-download'></i></a>

@@ -44,12 +44,12 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="room-card">
-                            <a href="{{ route('user.room.detail', $r->id) }}">
+                            <a href="{{ route('user.search_room_detail',$r->id.'?check_in='.old('check_in').'&check_out='.old('check_out').'&person='.old('person')) }}">
                                 <img src="{{ asset('upload/room/' . $r->image) }}" alt="Images" width="420px"
                                     height="220px">
                             </a>
                             <div class="content">
-                                <h5><a href="{{ route('user.room.detail', $r->id) }}"
+                                <h5><a href="{{ route('user.search_room_detail',$r->id.'?check_in='.old('check_in').'&check_out='.old('check_out').'&person='.old('person')) }}"
                                         class="text-dark">{{ $r->room_name }}</a></h5>
                                 <ul>
                                     <li class="text-color">{{ $r->price }}$</li>

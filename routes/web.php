@@ -90,4 +90,7 @@ Route::prefix('user/room')->controller(UserRoomController::class)->group(functio
     Route::get('list','list')->name('user.room.list');
     Route::get('detail/{id}','detail')->name('user.room.detail');
     Route::get('booking/search','bookSearch')->name('user.book.search');
+    Route::get('search/detail/{id}','detailSearch')->name('user.search_room_detail');
+    Route::get('check_room_availability','checkAvailability')->name('check_room_availability');
+
 });
