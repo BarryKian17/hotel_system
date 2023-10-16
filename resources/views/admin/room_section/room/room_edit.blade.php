@@ -86,7 +86,7 @@
                                                         <img class="mt-1"
                                                             src="{{ !empty($m['multi_image']) ? url('upload/room/multiImg/' . $m['multi_image']) : url('storage/none.jpg') }}"
                                                             width="100px" height="100px" alt="">
-                                                        <a href="{{ route('room.delete.multiImg', $m['id']) }}"><i
+                                                        <a href="{{ route('room.delete.multiImg', $m['id']) }}" id="delete"><i
                                                                 class="lni lni-close me-3"></i></a>
                                                     @endforeach
                                                     <div class="row" id="preview_img"></div>

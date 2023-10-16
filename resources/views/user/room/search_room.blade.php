@@ -34,7 +34,7 @@
                             ->where('rooms_id', $r->id)
                             ->get()
                             ->toArray();
-
+                        $room_name = App\Models\RoomType::where('id',$r->room_type_id)->get();
                         $total_book_room = array_sum(array_column($booking, 'assign_rooms_count'));
                         $av_room = @$r->room_numbers_count - $total_book_room;
                     @endphp
@@ -50,7 +50,7 @@
                             </a>
                             <div class="content">
                                 <h5><a href="{{ route('user.search_room_detail',$r->id.'?check_in='.old('check_in').'&check_out='.old('check_out').'&person='.old('person')) }}"
-                                        class="text-dark">{{ $r->room_name }}</a></h5>
+                                        class="text-dark">{{ $room_name[0]['name'] }}</a></h5>
                                 <ul>
                                     <li class="text-color">{{ $r->price }}$</li>
                                     <li class="text-color">Per Night</li>

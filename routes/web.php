@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookAreaController;
 use App\Http\Controllers\RoomTypeController;
+use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\User\UserRoomController;
 
 /*
@@ -32,6 +33,12 @@ Route::middleware('auth','user')->group(function () {
     Route::get('/user/logout', [UserController::class, 'userLogout'])->name('user.logout');
     Route::get('/user/password/change',[UserController::class,'userChangePassword'])->name('user.password.change');
 
+    //User CheckOut View
+    Route::prefix('user')->controller(BookingController::class)->group(function(){
+        Route::get('check/out','checkOut')->name('user.check.out');
+        Route::post('booking/store/{id}','bookingStore')->name('user.booking.store');
+
+    });
 
 
 });

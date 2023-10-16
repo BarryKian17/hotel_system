@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\Booking;
 use App\Models\Facility;
+use App\Models\RoomType;
 use Carbon\CarbonPeriod;
 use App\Models\MultiImage;
 use Illuminate\Http\Request;
@@ -60,6 +61,8 @@ class UserRoomController extends Controller
         $check_date_booking_ids = RoomBookedDate::whereIn('book_date',$dt_array)->distinct()->pluck('booking_id')->toArray();
 
         $room = Room::withCount('room_numbers')->where('status',1)->get();
+
+
 
         return view('user.room.search_room',compact('room','check_date_booking_ids'));
 
