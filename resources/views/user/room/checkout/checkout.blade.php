@@ -30,7 +30,8 @@
         <!-- Checkout Area -->
 		<section class="checkout-area pt-100 pb-70">
 			<div class="container">
-				<form>
+				<form action="{{ route('user.booking.checkout') }}" method="POST" role="form">
+                    @csrf
 					<div class="row">
                         <div class="col-lg-8">
 							<div class="billing-details">
@@ -41,13 +42,21 @@
 										<div class="form-group">
 											<label>Country <span class="required">*</span></label>
 											<div class="select-box">
-												<select class="form-control">
-													<option value="5">United Arab Emirates</option>
-													<option value="1">China</option>
-													<option value="2">United Kingdom</option>
-													<option value="0">Germany</option>
-													<option value="3">France</option>
-													<option value="4">Japan</option>
+												<select class="form-control"  name="country">
+													<option value="Myanmar">Myanmar</option>
+													<option value="Thailand">Thailand</option>
+													<option value="Singapore">Singapore</option>
+													<option value="India">India</option>
+													<option value="United State">United State</option>
+													<option value="China">China</option>
+													<option value="United Kingdom">United Kingdom</option>
+													<option value="Germany">Germany</option>
+													<option value="France">France</option>
+													<option value="Japan">Japan</option>
+													<option value="Canada">Canada</option>
+													<option value="South-Korea">South-Korea</option>
+													<option value="Any Other">Any Other</option>
+
 												</select>
 											</div>
 										</div>
@@ -55,70 +64,43 @@
 
 									<div class="col-lg-6 col-md-6">
 										<div class="form-group">
-											<label>First Name <span class="required">*</span></label>
-											<input type="text" class="form-control">
+											<label>Name <span class="required">*</span></label>
+											<input required name="name" value="{{ Auth::user()->name }}" type="text" class="form-control fw-bold">
 										</div>
 									</div>
+                                    <input name="user_id" value="{{ Auth::user()->id }}" type="hidden">
 
 									<div class="col-lg-6 col-md-6">
 										<div class="form-group">
-											<label>Last Name <span class="required">*</span></label>
-											<input type="text" class="form-control">
+											<label>Email<span class="required">*</span></label>
+											<input required type="email" class="form-control fw-bold" name="email" value="{{ Auth::user()->email }}">
 										</div>
 									</div>
 
 									<div class="col-lg-12 col-md-12">
 										<div class="form-group">
-											<label>Company Name</label>
-											<input type="text" class="form-control">
+											<label>Phone</label>
+											<input required name="phone" value="{{ Auth::user()->phone }}" type="text" class="form-control fw-bold">
 										</div>
 									</div>
 
 									<div class="col-lg-12 col-md-6">
 										<div class="form-group">
 											<label>Address <span class="required">*</span></label>
-											<input type="text" class="form-control">
+											<input required name="address" value="{{ Auth::user()->address }}" type="text" class="form-control fw-bold">
 										</div>
 									</div>
-
-									<div class="col-lg-12 col-md-6">
+									<div class="col-lg-6 col-md-6">
 										<div class="form-group">
-											<label>Town / City <span class="required">*</span></label>
-											<input type="text" class="form-control">
+											<label>State<span class="required">*</span></label>
+											<input required type="text" name="state" class="form-control">
 										</div>
 									</div>
 
 									<div class="col-lg-6 col-md-6">
 										<div class="form-group">
-											<label>State / County <span class="required">*</span></label>
-											<input type="text" class="form-control">
-										</div>
-									</div>
-
-									<div class="col-lg-6 col-md-6">
-										<div class="form-group">
-											<label>Postcode / Zip <span class="required">*</span></label>
-											<input type="text" class="form-control">
-										</div>
-									</div>
-
-									<div class="col-lg-6 col-md-6">
-										<div class="form-group">
-											<label>Email Address <span class="required">*</span></label>
-											<input type="email" class="form-control">
-										</div>
-									</div>
-
-									<div class="col-lg-6 col-md-6">
-										<div class="form-group">
-											<label>Phone <span class="required">*</span></label>
-											<input type="text" class="form-control">
-										</div>
-									</div>
-									<div class="col-lg-12 col-md-12">
-										<div class="form-check">
-											<input type="checkbox" class="form-check-input" id="create-an-account">
-											<label class="form-check-label" for="create-an-account">Create an account?</label>
+											<label>Zip_Code <span class="required">*</span></label>
+											<input required type="text" name="zip_code" class="form-control">
 										</div>
 									</div>
 								</div>
@@ -180,6 +162,13 @@
                                       </div>
                                 </div>
                           </section>
+                          <input type="hidden" name="subTotal" value="{{ $subTotal }}">
+                          <input type="hidden" name="discount" value="{{ $discount }}">
+
+                          <input type="hidden" name="total" value="{{ $total }}">
+                          <input type="hidden" name="person" value="{{ $booking_data['person'] }}">
+
+                          <input type="hidden" name="number_of_rooms" value="{{ $booking_data['number_of_rooms'] }}">
 
 						</div>
 
@@ -188,24 +177,21 @@
 							<div class="payment-box">
                                 <div class="payment-method">
                                     <p>
-                                        <input type="radio" id="direct-bank-transfer" name="radio-group" checked>
-                                        <label for="direct-bank-transfer">Direct Bank Transfer</label>
-                                        Make your payment directly into our bank account. Please use your Order
-                                        ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-                                    </p>
+                                        <label class="fw-bold" for="direct-bank-transfer">Payment Method</label></p>
+                                        <p>
+                                            <input type="radio" id="cash-on-arrival" value="COD" name="payment_method">
+                                            <label for="cash-on-arrival">Cash On Arrival</label>
+                                        </p>
                                     <p>
-                                        <input type="radio" id="paypal" name="radio-group">
-                                        <label for="paypal">PayPal</label>
+                                        <input type="radio" id="stripe" name="radio-group">
+                                        <label for="stripe">Stripe</label>
                                     </p>
-                                    <p>
-                                        <input type="radio" id="cash-on-delivery" name="radio-group">
-                                        <label for="cash-on-delivery">Cash On Delivery</label>
-                                    </p>
+
                                 </div>
 
-                                <a href="#" class="order-btn three">
+                                <button href="#" class="order-btn three">
                                     Place to Order
-                                </a>
+                                </button>
                             </div>
 						</div>
 					</div>

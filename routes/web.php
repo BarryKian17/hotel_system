@@ -37,6 +37,7 @@ Route::middleware('auth','user')->group(function () {
     Route::prefix('user')->controller(BookingController::class)->group(function(){
         Route::get('check/out','checkOut')->name('user.check.out');
         Route::post('booking/store/{id}','bookingStore')->name('user.booking.store');
+        Route::post('booking/checkout','bookCheckout')->name('user.booking.checkout');
 
     });
 
